@@ -5,3 +5,14 @@ Site voor minor GDD
 3. run cmd 'Composer install'
 4. Verander de database in 'common/config/main-local.php'
 5. importeer de 'minorsite.sql' file in jou database
+
+===============================
+Dummy accounts:
+
+Admin:
+username: ivar
+Password: ivar123
+
+User:
+username: other
+Password: other123
