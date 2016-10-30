@@ -32,7 +32,8 @@ class Ratings extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'project_id', 'rating'], 'required'],
-            [['user_id', 'project_id', 'rating'], 'integer'],
+            [['user_id', 'project_id'], 'integer'],
+            [['rating'], 'integer', 'max' => 10, 'min' => 0],
             [['project_id'], 'exist', 'skipOnError' => true, 'targetClass' => Projects::className(), 'targetAttribute' => ['project_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];

@@ -13,9 +13,12 @@ use Yii;
  * @property string $small_description
  * @property string $description
  * @property string $image
+ * @property string $category
+ * @property integer $hideName
  *
  * @property User $user
  * @property Ratings[] $ratings
+ * @property User[] $users
  */
 class Projects extends \yii\db\ActiveRecord
 {
@@ -33,10 +36,10 @@ class Projects extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'name', 'small_description', 'description', 'image'], 'required'],
-            [['user_id'], 'integer'],
+            [['name', 'small_description', 'description', 'category'], 'required'],
+            [['user_id', 'hideName'], 'integer'],
             [['description'], 'string'],
-            [['name', 'image'], 'string', 'max' => 255],
+            [['name', 'image', 'category'], 'string', 'max' => 255],
             [['small_description'], 'string', 'max' => 140],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -54,6 +57,8 @@ class Projects extends \yii\db\ActiveRecord
             'small_description' => 'Small Description',
             'description' => 'Description',
             'image' => 'Image',
+            'category' => 'Category',
+            'hideName' => 'Hide Name',
         ];
     }
 
@@ -71,5 +76,13 @@ class Projects extends \yii\db\ActiveRecord
     public function getRatings()
     {
         return $this->hasMany(Ratings::className(), ['project_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUsers()
+    {
+        return $this->hasMany(User::className(), ['id' => 'user_id'])->viaTable('ratings', ['project_id' => 'id']);
     }
 }

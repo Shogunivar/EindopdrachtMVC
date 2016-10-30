@@ -63,7 +63,6 @@ class User extends \yii\db\ActiveRecord
             'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
-            'role' => 'Role',
         ];
     }
 
