@@ -142,6 +142,9 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {
+                    $auth = Yii::$app->authManager;
+                    $userRole = $auth->getRole('user');
+                    $auth->assign($userRole, $user->id);
                     return $this->goHome();
                 }
             }
